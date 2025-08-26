@@ -22,7 +22,7 @@ git clone https://github.com/ernstchristia1202/SupplySight.git\
 ```
 cd backend
 npm install
-node index.jsx
+node index.js
 ```
 The server will run on `http://localhost:4000`.
 

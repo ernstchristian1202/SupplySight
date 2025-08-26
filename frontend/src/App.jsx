@@ -1,10 +1,11 @@
 import { ApolloClient, InMemoryCache, HttpLink  } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client/react';
 import Dashboard from './pages/Dashboard';
+import { API_BASE_URL } from './constant';
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: "http://localhost:4000",
+    uri: API_BASE_URL,
   }),
   cache: new InMemoryCache()
 });
