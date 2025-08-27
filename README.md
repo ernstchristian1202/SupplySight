@@ -17,7 +17,7 @@ The SupplySight Inventory Dashboard is a web-based application built with React,
 
 ## Installation
 1. Clone the repository:
-git clone https://github.com/ernstchristia1202/SupplySight.git\
+git clone https://github.com/ernstchristia1202/SupplySight.git
 2. Install dependencies and run GraphQL server & frontend development server:
 ```
 cd backend

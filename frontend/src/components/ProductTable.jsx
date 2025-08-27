@@ -64,7 +64,6 @@ function ProductTable({
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: {
       search,
-      // If your API expects null/undefined to mean “no filter”, avoid sending "All"
       status: statusFilter === "All" ? null : statusFilter,
       warehouse: warehouseFilter === "All" ? null : warehouseFilter,
     },
@@ -82,7 +81,6 @@ function ProductTable({
 
   const products = data?.products ?? [];
 
-  // Precompute status once, also normalize numeric display
   const rows = useMemo(
     () =>
       products.map((p) => {
@@ -105,7 +103,7 @@ function ProductTable({
   }, [rows, page, pageSize]);
 
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden mt-6">
+    <div className="bg-white rounded-lg shadow overflow-x-auto overflow-y-hidden w-full mt-6">
       <table className="w-full">
         <thead className="bg-gray-100">
           <tr>
@@ -154,7 +152,7 @@ function ProductTable({
                   <td className="p-3">{p.demand}</td>
                   <td className="p-3">
                     <span
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+                      className={`w-[100px] block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
                         p.status
                       )}`}
                     >

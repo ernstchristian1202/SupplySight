@@ -43,7 +43,6 @@ function Dashboard() {
   const [page, setPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Reset pagination whenever filters/search change
   useEffect(() => {
     setPage(1);
   }, [search, warehouseFilter, statusFilter]);
@@ -75,7 +74,6 @@ function Dashboard() {
 
   const kpis = kpisData?.kpis ?? [];
 
-  // Derived metrics (memoized)
   const { totalStock, totalDemand, fillRate, chartData } = useMemo(() => {
     const source = selectedProduct
       ? [{ stock: selectedProduct.stock, demand: selectedProduct.demand }]
@@ -104,27 +102,23 @@ function Dashboard() {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen relative">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex sm:flex-row flex-col justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">SupplySight</h1>
         <RangeToggle value={range} onChange={setRange} />
       </div>
 
-      {/* Error banners (scoped, non-blocking) */}
       {(warehousesError || kpisError) && (
         <div className="mb-4 rounded-md border border-red-300 bg-red-50 text-red-700 p-3">
           Error loading dashboard data. Please try again later.
         </div>
       )}
 
-      {/* KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <KpiCard title="Total Stock" value={totalStock} />
         <KpiCard title="Total Demand" value={totalDemand} />
         <KpiCard title="Fill Rate" value={`${fillRate}%`} />
       </div>
 
-      {/* Chart */}
       <div className="relative">
         {kpisLoading ? (
           <div className="bg-white p-4 rounded-lg shadow mb-6 w-full h-[300px] animate-pulse" />
@@ -133,7 +127,6 @@ function Dashboard() {
         )}
       </div>
 
-      {/* Filters */}
       <FilterBar
         search={search}
         setSearch={setSearch}
@@ -144,7 +137,6 @@ function Dashboard() {
         warehouses={warehouses}
       />
 
-      {/* Table */}
       <ProductTable
         search={search}
         warehouseFilter={warehouseFilter}
@@ -154,7 +146,6 @@ function Dashboard() {
         onRowClick={setSelectedProduct}
       />
 
-      {/* Drawer */}
       {selectedProduct && (
         <ProductDrawer
           product={selectedProduct}
@@ -163,7 +154,6 @@ function Dashboard() {
         />
       )}
 
-      {/* Global small loaders (non-blocking) */}
       {(warehousesLoading || kpisLoading) && (
         <div className="fixed bottom-4 right-4 w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin opacity-80" />
       )}
